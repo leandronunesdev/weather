@@ -30,10 +30,12 @@ export const ForecastTable = ({ rows }: any) => {
                 <TableCell component='th' scope='row'>
                   {row.dt}
                 </TableCell>
-                <TableCell align='right'>{row.temp.morn}</TableCell>
-                <TableCell align='right'>{row.temp.day}</TableCell>
-                <TableCell align='right'>{row.temp.night}</TableCell>
-                <TableCell align='right'>{row.humidity}</TableCell>
+                <TableCell align='right'>{Math.round(row.temp.morn)}</TableCell>
+                <TableCell align='right'>{Math.round(row.temp.day)}</TableCell>
+                <TableCell align='right'>
+                  {Math.round(row.temp.night)}
+                </TableCell>
+                <TableCell align='right'>{Math.round(row.humidity)}</TableCell>
               </TableRow>
             ))}
         </TableBody>

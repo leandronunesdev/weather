@@ -17,13 +17,15 @@ const Home = () => {
   const [search, setSearch] = useState('');
   const [city, setCity] = useState<CityType>();
   const [forecast, setForecast] = useState<any>();
-  const [mean, setMean] = useState();
+  const [min, setMin] = useState<number>();
+  const [max, setMax] = useState<number>();
+  const [mean, setMean] = useState<number>();
+  const [mode, setMode] = useState<number>();
 
   const temperaturesArray: any = [];
 
   const onSearchChanged = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-    console.log(search);
   };
 
   const handleGetCity = async (e: FormEvent) => {
@@ -64,21 +66,55 @@ const Home = () => {
     if (forecast) {
       forecast.map((daily: any) =>
         temperaturesArray.push(
-          daily.temp.day,
-          daily.temp.eve,
-          daily.temp.morn,
-          daily.temp.night
+          Math.round(daily.temp.day),
+          Math.round(daily.temp.eve),
+          Math.round(daily.temp.morn),
+          Math.round(daily.temp.night)
         )
       );
     }
   }, [forecast]);
 
-  // useEffect(() => {
-  //   if(temperaturesArray.length === 20){
-  //     const
-  //   }
-  //   console.log(temperaturesArray);
-  // }, [temperaturesArray]);
+  useEffect(() => {
+    if (temperaturesArray.length === 20) {
+      const average =
+        temperaturesArray.reduce((a: number, b: number) => a + b, 0) /
+        temperaturesArray.length;
+      setMean(Math.round(average));
+      setMode(getMode(temperaturesArray));
+      setMin(Math.min(...temperaturesArray));
+      setMax(Math.max(...temperaturesArray));
+    }
+  }, [temperaturesArray]);
+
+  function getMode(array: any) {
+    interface IObjectKeys {
+      [key: number]: number;
+    }
+
+    const obj: IObjectKeys = {};
+
+    array.forEach((number: any) => {
+      if (!obj[number as keyof IObjectKeys]) {
+        obj[number] = 1;
+      } else {
+        obj[number] += 1;
+      }
+    });
+
+    let highestValue = 0;
+    let highestValueKey = 0;
+
+    for (let key in obj) {
+      const value = obj[key];
+      if (value > highestValue) {
+        highestValue = value;
+        highestValueKey = parseInt(key);
+      }
+    }
+
+    return highestValueKey;
+  }
 
   return (
     <S.HomeWrapper>
@@ -90,6 +126,21 @@ const Home = () => {
         />
         <S.StyledButton onClick={handleGetCity}>Check</S.StyledButton>
       </S.StyledForm>
+      {city && (
+        <div>
+          <p>
+            5-day weather forecast for {city.name}, {city.state}, {city.country}
+          </p>
+        </div>
+      )}
+      {min && max && mean && mode && (
+        <div>
+          <p>Minimum Temperature: {min}</p>
+          <p>Maximum Temperature: {max}</p>
+          <p>Mean Temperature: {mean}</p>
+          <p>Mode Temperature: {mode}</p>
+        </div>
+      )}
       {forecast && <ForecastTable rows={forecast} />}
     </S.HomeWrapper>
   );
