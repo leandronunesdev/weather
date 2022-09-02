@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { ForecastTable, SearchInput } from '../../components';
+import { ForecastTable, Loading, SearchInput } from '../../components';
 import { locationService } from '../../services/locationService';
 import { weatherService } from '../../services/weatherService';
 
@@ -22,6 +22,7 @@ const Home = () => {
   const [mean, setMean] = useState<number>();
   const [mode, setMode] = useState<number>();
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const temperaturesArray: any = [];
 
@@ -32,16 +33,19 @@ const Home = () => {
   const handleGetCity = async (e: FormEvent) => {
     e.preventDefault();
     if (search) {
+      setLoading(true);
       const data = await locationService.get(search);
 
       if (!data.data.length) {
         setError(true);
+        setLoading(false);
         return;
       }
 
       if (data) {
         setCity(data.data[0]);
         setError(false);
+        setLoading(false);
       }
 
       return;
@@ -133,28 +137,38 @@ const Home = () => {
         />
         <S.StyledButton onClick={handleGetCity}>Check</S.StyledButton>
       </S.StyledForm>
-      {error && (
-        <p>
-          Sorry, your seach returned no results. Please check the city name and
-          try again
-        </p>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {error ? (
+            <p>
+              Sorry, your seach returned no results. Please check the city name
+              and try again
+            </p>
+          ) : (
+            <>
+              {city && (
+                <div>
+                  <p>
+                    5-day weather forecast for {city.name}, {city.state},{' '}
+                    {city.country}
+                  </p>
+                </div>
+              )}
+              {min && max && mean && mode && (
+                <div>
+                  <p>Minimum Temperature: {min}</p>
+                  <p>Maximum Temperature: {max}</p>
+                  <p>Mean Temperature: {mean}</p>
+                  <p>Mode Temperature: {mode}</p>
+                </div>
+              )}
+              {forecast && <ForecastTable rows={forecast} />}
+            </>
+          )}
+        </>
       )}
-      {!error && city && (
-        <div>
-          <p>
-            5-day weather forecast for {city.name}, {city.state}, {city.country}
-          </p>
-        </div>
-      )}
-      {!error && min && max && mean && mode && (
-        <div>
-          <p>Minimum Temperature: {min}</p>
-          <p>Maximum Temperature: {max}</p>
-          <p>Mean Temperature: {mean}</p>
-          <p>Mode Temperature: {mode}</p>
-        </div>
-      )}
-      {!error && forecast && <ForecastTable rows={forecast} />}
     </S.HomeWrapper>
   );
 };
