@@ -1,13 +1,19 @@
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from '@mui/material';
+import { ForecastType } from '../../pages/Home';
 
-export const ForecastTable = ({ rows }: any) => {
+export type ForecastTableProps = {
+  rows: ForecastType[];
+};
+
+export const ForecastTable = ({ rows }: ForecastTableProps) => {
   const unixConverter = (timestamp: number) => {
     const date = new Date(timestamp * 1000);
     return WEEK_DAYS[date.getDay()].name;
@@ -58,7 +64,7 @@ export const ForecastTable = ({ rows }: any) => {
         </TableHead>
         <TableBody>
           {rows &&
-            rows.map((row: any) => (
+            rows.map((row: ForecastType) => (
               <TableRow
                 key={row.dt}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

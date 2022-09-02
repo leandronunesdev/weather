@@ -13,18 +13,29 @@ export type CityType = {
   state: string;
 };
 
+export type ForecastType = {
+  dt: number;
+  temp: {
+    day: number;
+    eve: number;
+    morn: number;
+    night: number;
+  };
+  humidity: number;
+};
+
 const Home = () => {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState<string>('');
   const [city, setCity] = useState<CityType>();
-  const [forecast, setForecast] = useState<any>();
+  const [forecast, setForecast] = useState<ForecastType[]>();
   const [min, setMin] = useState<number>();
   const [max, setMax] = useState<number>();
   const [mean, setMean] = useState<number>();
   const [mode, setMode] = useState<number>();
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const temperaturesArray: any = [];
+  const temperaturesArray: number[] = [];
 
   const onSearchChanged = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -53,7 +64,12 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const getWeather = async (params: any) => {
+    type GetWeatherParams = {
+      lat: number;
+      lon: number;
+    };
+
+    const getWeather = async (params: GetWeatherParams) => {
       const data = await weatherService.get(params);
 
       if (data) {
@@ -75,7 +91,7 @@ const Home = () => {
 
   useEffect(() => {
     if (forecast) {
-      forecast.map((daily: any) =>
+      forecast.map((daily: ForecastType) =>
         temperaturesArray.push(
           Math.round(daily.temp.day),
           Math.round(daily.temp.eve),
@@ -98,14 +114,14 @@ const Home = () => {
     }
   }, [temperaturesArray]);
 
-  function getMode(array: any) {
+  function getMode(array: number[]) {
     interface IObjectKeys {
       [key: number]: number;
     }
 
     const obj: IObjectKeys = {};
 
-    array.forEach((number: any) => {
+    array.forEach((number: number) => {
       if (!obj[number as keyof IObjectKeys]) {
         obj[number] = 1;
       } else {

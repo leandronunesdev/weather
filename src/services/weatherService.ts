@@ -17,8 +17,8 @@ export const weatherService = {
     };
 
     try {
-      const data = api.get('data/3.0/onecall', { params });
-      return data as any;
+      const { data } = await api.get('data/3.0/onecall', { params });
+      return data;
     } catch (error) {
       return error;
     }
