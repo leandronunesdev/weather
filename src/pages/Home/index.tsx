@@ -35,8 +35,6 @@ const Home = () => {
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const temperaturesArray: number[] = [];
-
   const onSearchChanged = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
@@ -91,29 +89,29 @@ const Home = () => {
   }, [city]);
 
   useEffect(() => {
+    const getStats = (temperatures: number[]) => {
+      const average =
+        temperatures.reduce((a: number, b: number) => a + b, 0) /
+        temperatures.length;
+      setMean(Math.round(average));
+      setMode(getMode(temperatures));
+      setMin(Math.min(...temperatures));
+      setMax(Math.max(...temperatures));
+    };
+
     if (forecast) {
+      const temperatures: number[] = [];
       forecast.map((daily: ForecastType) =>
-        temperaturesArray.push(
+        temperatures.push(
           Math.round(daily.temp.day),
           Math.round(daily.temp.eve),
           Math.round(daily.temp.morn),
           Math.round(daily.temp.night)
         )
       );
+      getStats(temperatures);
     }
   }, [forecast]);
-
-  useEffect(() => {
-    if (temperaturesArray.length === 20) {
-      const average =
-        temperaturesArray.reduce((a: number, b: number) => a + b, 0) /
-        temperaturesArray.length;
-      setMean(Math.round(average));
-      setMode(getMode(temperaturesArray));
-      setMin(Math.min(...temperaturesArray));
-      setMax(Math.max(...temperaturesArray));
-    }
-  }, [temperaturesArray]);
 
   function getMode(array: number[]) {
     interface IObjectKeys {
