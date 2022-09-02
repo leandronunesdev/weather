@@ -2,7 +2,9 @@ import styled from 'styled-components';
 
 export const HomeWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   max-width: 1240px;
+  margin: auto;
 `;
 
 export const StyledForm = styled.form`
