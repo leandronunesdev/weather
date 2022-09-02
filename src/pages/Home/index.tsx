@@ -46,15 +46,16 @@ const Home = () => {
     if (search) {
       setLoading(true);
       const data = await locationService.get(search);
+      console.log(data.length);
 
-      if (!data.data.length) {
+      if (!data.length) {
         setError(true);
         setLoading(false);
         return;
       }
 
       if (data) {
-        setCity(data.data[0]);
+        setCity(data[0]);
         setError(false);
         setLoading(false);
       }
@@ -73,7 +74,7 @@ const Home = () => {
       const data = await weatherService.get(params);
 
       if (data) {
-        setForecast(data.data.daily.slice(0, 5));
+        setForecast(data.daily.slice(0, 5));
       }
 
       return;
