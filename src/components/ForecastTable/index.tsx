@@ -8,6 +8,42 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 export const ForecastTable = ({ rows }: any) => {
+  const unixConverter = (timestamp: number) => {
+    const date = new Date(timestamp * 1000);
+    return WEEK_DAYS[date.getDay()].name;
+  };
+
+  const WEEK_DAYS = [
+    {
+      id: 0,
+      name: 'SUN',
+    },
+    {
+      id: 1,
+      name: 'MON',
+    },
+    {
+      id: 2,
+      name: 'TUE',
+    },
+    {
+      id: 3,
+      name: 'WED',
+    },
+    {
+      id: 4,
+      name: 'THU',
+    },
+    {
+      id: 5,
+      name: 'FRI',
+    },
+    {
+      id: 6,
+      name: 'SAT',
+    },
+  ];
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label='simple table'>
@@ -28,7 +64,7 @@ export const ForecastTable = ({ rows }: any) => {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component='th' scope='row'>
-                  {row.dt}
+                  {unixConverter(row.dt)}
                 </TableCell>
                 <TableCell align='right'>{Math.round(row.temp.morn)}</TableCell>
                 <TableCell align='right'>{Math.round(row.temp.day)}</TableCell>
