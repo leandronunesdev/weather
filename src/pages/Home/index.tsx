@@ -1,8 +1,17 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { WiDayCloudy } from 'react-icons/wi';
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
+import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
+import LegendToggleRoundedIcon from '@mui/icons-material/LegendToggleRounded';
+import ScatterPlotRoundedIcon from '@mui/icons-material/ScatterPlotRounded';
 
-import { ForecastTable, Loading, SearchInput } from '../../components';
+import {
+  ForecastTable,
+  Loading,
+  SearchInput,
+  StatsBox,
+} from '../../components';
 import { locationService } from '../../services/locationService';
 import { weatherService } from '../../services/weatherService';
 
@@ -173,7 +182,7 @@ const Home = () => {
               {city && (
                 <div>
                   <h2>
-                    5-day weather forecast for {city.name}, {city.state},{' '}
+                    5-Day Weather Forecast for {city.name}, {city.state},{' '}
                     {city.country}
                   </h2>
                 </div>
@@ -181,13 +190,31 @@ const Home = () => {
               {forecast && <ForecastTable rows={forecast} />}
               {min && max && mean && mode && (
                 <>
-                  <h2>Weather Stats for {city?.name}</h2>
-                  <div>
-                    <p>Minimum Temperature: {min}°</p>
-                    <p>Maximum Temperature: {max}°</p>
-                    <p>Mean Temperature: {mean}°</p>
-                    <p>Mode Temperature: {mode}°</p>
-                  </div>
+                  <h2>5-Day Weather Stats for {city?.name}</h2>
+                  <S.StatsBoxSection>
+                    <StatsBox
+                      title='Minimum Temperature'
+                      temperature={min}
+                      icon={
+                        <KeyboardArrowDownRoundedIcon htmlColor='#4050D2' />
+                      }
+                    />
+                    <StatsBox
+                      title='Maximum Temperature'
+                      temperature={max}
+                      icon={<KeyboardArrowUpRoundedIcon htmlColor='#FFBF5E' />}
+                    />
+                    <StatsBox
+                      title='Mean Temperature'
+                      temperature={mean}
+                      icon={<LegendToggleRoundedIcon htmlColor='#6ABAD1' />}
+                    />
+                    <StatsBox
+                      title='Mode Temperature'
+                      temperature={mode}
+                      icon={<ScatterPlotRoundedIcon htmlColor='#d6d7da' />}
+                    />
+                  </S.StatsBoxSection>
                 </>
               )}
             </>

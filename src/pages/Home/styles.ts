@@ -18,6 +18,7 @@ export const HomeWrapper = styled.div`
   .MuiPaper-root {
     box-shadow: none;
     margin: 25px auto;
+    border-radius: 15px;
   }
 `;
 
@@ -42,4 +43,10 @@ export const StyledButton = styled.button`
       box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.15);
     }
   `}
+`;
+
+export const StatsBoxSection = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 25px 0 100px;
 `;
