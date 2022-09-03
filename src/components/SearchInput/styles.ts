@@ -6,6 +6,10 @@ export const StyledInput = styled.input`
   padding-left: 24px;
   font-size: 16px;
   outline: none;
-  border-radius: 25px;
-  border: 0.5px solid grey;
+  border-radius: 15px;
+  border: none;
+
+  &:hover {
+    box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.15);
+  }
 `;

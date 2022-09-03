@@ -3,11 +3,20 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
   Paper,
+  TableHead,
 } from '@mui/material';
 import { ForecastType } from '../../pages/Home';
+import {
+  WiDayHaze,
+  WiDaySunny,
+  WiHumidity,
+  WiMoonWaningCrescent2,
+} from 'react-icons/wi';
+import { WEEK_DAYS } from '../../constants/weekDays';
+
+import * as S from './styles';
 
 export type ForecastTableProps = {
   rows: ForecastType[];
@@ -19,47 +28,28 @@ export const ForecastTable = ({ rows }: ForecastTableProps) => {
     return WEEK_DAYS[date.getDay()].name;
   };
 
-  const WEEK_DAYS = [
-    {
-      id: 0,
-      name: 'SUN',
-    },
-    {
-      id: 1,
-      name: 'MON',
-    },
-    {
-      id: 2,
-      name: 'TUE',
-    },
-    {
-      id: 3,
-      name: 'WED',
-    },
-    {
-      id: 4,
-      name: 'THU',
-    },
-    {
-      id: 5,
-      name: 'FRI',
-    },
-    {
-      id: 6,
-      name: 'SAT',
-    },
-  ];
-
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label='simple table'>
+      <Table sx={{ minWidth: 100 }} aria-label='simple table'>
         <TableHead>
           <TableRow>
-            <TableCell>Weekday</TableCell>
-            <TableCell align='right'>Morning</TableCell>
-            <TableCell align='right'>Day</TableCell>
-            <TableCell align='right'>Night</TableCell>
-            <TableCell align='right'>Humidity</TableCell>
+            <TableCell>{}</TableCell>
+            <TableCell align='center'>
+              <WiDayHaze size='35px' color='#FFBF5E' />
+              <S.StyledParagraph>Morning</S.StyledParagraph>
+            </TableCell>
+            <TableCell align='center'>
+              <WiDaySunny size='35px' color='#FFBF5E' />
+              <S.StyledParagraph>Day</S.StyledParagraph>
+            </TableCell>
+            <TableCell align='center'>
+              <WiMoonWaningCrescent2 size='35px' color='#4050D2' />
+              <S.StyledParagraph>Night</S.StyledParagraph>
+            </TableCell>
+            <TableCell align='center'>
+              <WiHumidity size='35px' color='#6ABAD1' />
+              <S.StyledParagraph>Humidity</S.StyledParagraph>
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -70,16 +60,20 @@ export const ForecastTable = ({ rows }: ForecastTableProps) => {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component='th' scope='row'>
-                  {unixConverter(row.dt)}
+                  <S.StyledParagraph>{unixConverter(row.dt)}</S.StyledParagraph>
                 </TableCell>
-                <TableCell align='right'>
+                <TableCell align='center'>
                   {Math.round(row.temp.morn)}°
                 </TableCell>
-                <TableCell align='right'>{Math.round(row.temp.day)}°</TableCell>
-                <TableCell align='right'>
+                <TableCell align='center'>
+                  {Math.round(row.temp.day)}°
+                </TableCell>
+                <TableCell align='center'>
                   {Math.round(row.temp.night)}°
                 </TableCell>
-                <TableCell align='right'>{Math.round(row.humidity)}%</TableCell>
+                <TableCell align='center'>
+                  {Math.round(row.humidity)}%
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>

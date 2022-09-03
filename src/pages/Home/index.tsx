@@ -1,4 +1,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import { WiDayCloudy } from 'react-icons/wi';
+
 import { ForecastTable, Loading, SearchInput } from '../../components';
 import { locationService } from '../../services/locationService';
 import { weatherService } from '../../services/weatherService';
@@ -44,7 +47,6 @@ const Home = () => {
     if (search) {
       setLoading(true);
       const data = await locationService.get(search);
-      console.log(data.length);
 
       if (!data.length) {
         setError(true);
@@ -55,12 +57,40 @@ const Home = () => {
       if (data) {
         setCity(data[0]);
         setError(false);
-        setLoading(false);
       }
 
       return;
     }
   };
+
+  function getMode(array: number[]) {
+    interface IObjectKeys {
+      [key: number]: number;
+    }
+
+    const obj: IObjectKeys = {};
+
+    array.forEach((number: number) => {
+      if (!obj[number as keyof IObjectKeys]) {
+        obj[number] = 1;
+      } else {
+        obj[number] += 1;
+      }
+    });
+
+    let highestValue = 0;
+    let highestValueKey = 0;
+
+    for (let key in obj) {
+      const value = obj[key];
+      if (value > highestValue) {
+        highestValue = value;
+        highestValueKey = parseInt(key);
+      }
+    }
+
+    return highestValueKey;
+  }
 
   useEffect(() => {
     type GetWeatherParams = {
@@ -110,47 +140,24 @@ const Home = () => {
         )
       );
       getStats(temperatures);
+      setLoading(false);
     }
   }, [forecast]);
 
-  function getMode(array: number[]) {
-    interface IObjectKeys {
-      [key: number]: number;
-    }
-
-    const obj: IObjectKeys = {};
-
-    array.forEach((number: number) => {
-      if (!obj[number as keyof IObjectKeys]) {
-        obj[number] = 1;
-      } else {
-        obj[number] += 1;
-      }
-    });
-
-    let highestValue = 0;
-    let highestValueKey = 0;
-
-    for (let key in obj) {
-      const value = obj[key];
-      if (value > highestValue) {
-        highestValue = value;
-        highestValueKey = parseInt(key);
-      }
-    }
-
-    return highestValueKey;
-  }
-
   return (
     <S.HomeWrapper>
+      <h1>
+        WeatherApp <WiDayCloudy />
+      </h1>
       <S.StyledForm>
         <SearchInput
           placeholder='Search for the city here'
           value={search}
           onChange={onSearchChanged}
         />
-        <S.StyledButton onClick={handleGetCity}>Check</S.StyledButton>
+        <S.StyledButton onClick={handleGetCity}>
+          <SearchRoundedIcon />
+        </S.StyledButton>
       </S.StyledForm>
       {loading ? (
         <Loading />
@@ -158,28 +165,31 @@ const Home = () => {
         <>
           {error ? (
             <p>
-              Sorry, your seach returned no results. Please check the city name
+              Sorry, your search returned no results. Please check the city name
               and try again
             </p>
           ) : (
             <>
               {city && (
                 <div>
-                  <p>
+                  <h2>
                     5-day weather forecast for {city.name}, {city.state},{' '}
                     {city.country}
-                  </p>
-                </div>
-              )}
-              {min && max && mean && mode && (
-                <div>
-                  <p>Minimum Temperature: {min}</p>
-                  <p>Maximum Temperature: {max}</p>
-                  <p>Mean Temperature: {mean}</p>
-                  <p>Mode Temperature: {mode}</p>
+                  </h2>
                 </div>
               )}
               {forecast && <ForecastTable rows={forecast} />}
+              {min && max && mean && mode && (
+                <>
+                  <h2>Weather Stats for {city?.name}</h2>
+                  <div>
+                    <p>Minimum Temperature: {min}°</p>
+                    <p>Maximum Temperature: {max}°</p>
+                    <p>Mean Temperature: {mean}°</p>
+                    <p>Mode Temperature: {mode}°</p>
+                  </div>
+                </>
+              )}
             </>
           )}
         </>
