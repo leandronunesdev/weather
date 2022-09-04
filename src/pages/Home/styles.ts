@@ -1,4 +1,8 @@
 import styled, { css } from 'styled-components';
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
+import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
+import LegendToggleRoundedIcon from '@mui/icons-material/LegendToggleRounded';
+import ScatterPlotRoundedIcon from '@mui/icons-material/ScatterPlotRounded';
 
 export const HomeWrapper = styled.div`
   display: flex;
@@ -70,4 +74,26 @@ export const StatsBoxSection = styled.div`
   @media (max-width: 460px) {
     grid-template-columns: 1fr;
   }
+`;
+
+export const MinimumIcon = styled(KeyboardArrowDownRoundedIcon)`
+  ${({ theme }) => css`
+    color: ${theme.colors.blue};
+  `}
+`;
+
+export const MaximumIcon = styled(KeyboardArrowUpRoundedIcon)`
+  ${({ theme }) => css`
+    color: ${theme.colors.yellow};
+  `}
+`;
+export const MeanIcon = styled(LegendToggleRoundedIcon)`
+  ${({ theme }) => css`
+    color: ${theme.colors.lightBlue};
+  `}
+`;
+export const ModeIcon = styled(ScatterPlotRoundedIcon)`
+  ${({ theme }) => css`
+    color: ${theme.colors.grey};
+  `}
 `;

@@ -1,10 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import { WiDayCloudy } from 'react-icons/wi';
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
-import LegendToggleRoundedIcon from '@mui/icons-material/LegendToggleRounded';
-import ScatterPlotRoundedIcon from '@mui/icons-material/ScatterPlotRounded';
 
 import {
   ForecastTable,
@@ -195,24 +191,22 @@ const Home = () => {
                     <StatsBox
                       title='Minimum Temperature'
                       temperature={min}
-                      icon={
-                        <KeyboardArrowDownRoundedIcon htmlColor='#4050D2' />
-                      }
+                      icon={<S.MinimumIcon />}
                     />
                     <StatsBox
                       title='Maximum Temperature'
                       temperature={max}
-                      icon={<KeyboardArrowUpRoundedIcon htmlColor='#FFBF5E' />}
+                      icon={<S.MaximumIcon />}
                     />
                     <StatsBox
                       title='Mean Temperature'
                       temperature={mean}
-                      icon={<LegendToggleRoundedIcon htmlColor='#6ABAD1' />}
+                      icon={<S.MeanIcon />}
                     />
                     <StatsBox
                       title='Mode Temperature'
                       temperature={mode}
-                      icon={<ScatterPlotRoundedIcon htmlColor='#d6d7da' />}
+                      icon={<S.ModeIcon />}
                     />
                   </S.StatsBoxSection>
                 </>
