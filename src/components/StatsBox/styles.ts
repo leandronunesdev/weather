@@ -14,11 +14,13 @@ export const StatsBoxWrapper = styled.div`
 `;
 
 export const StatsTitle = styled.div`
-  p {
-    margin: 20px 0 20px 20px;
-    color: grey;
-    font-size: 14px;
-  }
+  ${({ theme }) => css`
+    p {
+      margin: 20px 0 20px 20px;
+      color: ${theme.colors.darkGrey};
+      font-size: 14px;
+    }
+  `}
 `;
 
 export const StatsData = styled.div`

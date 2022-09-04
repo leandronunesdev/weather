@@ -5,6 +5,7 @@ export const HomeWrapper = styled.div`
   flex-direction: column;
   max-width: 1000px;
   margin: auto;
+  padding: 0 25px;
   font-family: 'Roboto', sans-serif;
 
   h1 {
@@ -20,11 +21,22 @@ export const HomeWrapper = styled.div`
     margin: 25px auto;
     border-radius: 15px;
   }
+
+  @media (max-width: 415px) {
+    .MuiTableCell-root {
+      padding: 16px 4px;
+    }
+
+    h2 {
+      font-size: 20px;
+    }
+  }
 `;
 
 export const StyledForm = styled.form`
-  margin: 0 auto 25px;
   display: flex;
+  width: 100%;
+  justify-content: center;
 `;
 
 export const StyledButton = styled.button`
@@ -32,9 +44,9 @@ export const StyledButton = styled.button`
     border: none;
     margin-left: 20px;
     height: 50px;
-    width: 50px;
+    min-width: 50px;
     background: ${theme.colors.yellow};
-    color: white;
+    color: ${theme.colors.white};
     font-size: 14px;
     border-radius: 50%;
     cursor: pointer;
@@ -49,4 +61,13 @@ export const StatsBoxSection = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   margin: 25px 0 100px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+  }
+
+  @media (max-width: 460px) {
+    grid-template-columns: 1fr;
+  }
 `;

@@ -8,12 +8,6 @@ import {
   TableHead,
 } from '@mui/material';
 import { ForecastType } from '../../pages/Home';
-import {
-  WiDayHaze,
-  WiDaySunny,
-  WiHumidity,
-  WiMoonWaningCrescent2,
-} from 'react-icons/wi';
 import { WEEK_DAYS } from '../../constants/weekDays';
 
 import * as S from './styles';
@@ -35,19 +29,19 @@ export const ForecastTable = ({ rows }: ForecastTableProps) => {
           <TableRow>
             <TableCell>{}</TableCell>
             <TableCell align='center'>
-              <WiDayHaze size='35px' color='#FFBF5E' />
+              <S.MorningIcon />
               <S.StyledParagraph>Morning</S.StyledParagraph>
             </TableCell>
             <TableCell align='center'>
-              <WiDaySunny size='35px' color='#FFBF5E' />
+              <S.DayIcon />
               <S.StyledParagraph>Day</S.StyledParagraph>
             </TableCell>
             <TableCell align='center'>
-              <WiMoonWaningCrescent2 size='35px' color='#4050D2' />
+              <S.NightIcon />
               <S.StyledParagraph>Night</S.StyledParagraph>
             </TableCell>
             <TableCell align='center'>
-              <WiHumidity size='35px' color='#6ABAD1' />
+              <S.HumidityIcon />
               <S.StyledParagraph>Humidity</S.StyledParagraph>
             </TableCell>
           </TableRow>
