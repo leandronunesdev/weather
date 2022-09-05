@@ -1,46 +1,79 @@
-# Getting Started with Create React App
+# WeatherApp
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## WeatherApp using OpenWeatherMap API
 
-## Available Scripts
+<p align="center">
+ <a href="#features">Features</a> •
+ <a href="#demo">App Preview</a> •
+ <a href="#requirements">Requirements</a> •
+ <a href="#technologies">Technologies</a> • 
+ <a href="#author">Author</a>
+</p>
 
-In the project directory, you can run:
+<h4 align="center"> 
+	Finished project ✅
+</h4>
 
-### `npm start`
+<h1 id="features">Features</h1>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [x] Cities search bar
+- [x] 5-Day weather forecast table
+- [x] 5-day weather stats (minimum temperature, maximum temperature, mean temperature and mode temperature)
+- [x] Units system selection (Celsius or Fahrenheit)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<h1 id="demo">App Preview</h1>
 
-### `npm test`
+<h1 align="center">
+  <img alt="WeatherApp" title="#WeatherApp" src="./src/assets/images/weather_app.jpeg" />
+</h1>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<h1 id="requirements">Requirements</h1>
 
-### `npm run build`
+Before starting, you need to install in your machines the following tools:
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/).
+Besides that, is good to have a good code editor as [VSCode](https://code.visualstudio.com/)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 🎲 Running the Frontend
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+# Clone this repository
+$ git clone <https://github.com/leandronunesdev/weather>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Access the project folder using terminal/cmd
+$ cd weather
 
-### `npm run eject`
+# Install the dependencies
+$ npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Execute the application on development mode
+$ npm start
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# The server will start on port:3000 - access <http://localhost:3000>
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<h1 id="technologies">🛠 Technologies</h1>
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The following tools were used on this project:
 
-## Learn More
+- [React](https://pt-br.reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Styled Components](https://styled-components.com/)
+- [Material UI](https://mui.com/)
+- [react-icons](https://react-icons.github.io/react-icons)
+- [OpenWeather API](https://openweathermap.org/)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<h1 id="author">🛠 Author</h1>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<a href="https://github.com/leandronunesdev">
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/60386045?s=460&u=b81d71f87ddbf5a2da61abf86227ede788de7d32&v=4" width="100px;" alt=""/>
+ <br />
+ <sub><b>Leandro Nunes</b></sub></a> <a href="https://github.com/leandronunesdev" title="Leandro">🚀</a>
+
+Made with ❤️ by Leandro Nunes
+
+👋🏽 Reach out!
+
+<a href="https://leandronunes.dev/">Website<a> |
+<a href="https://www.linkedin.com/in/nunesprofissional/">Linkedin<a> |
+<a href="mailto:https://www.linkedin.com/in/nunesprofissional/">E-mail<a> |
+<a href="https://twitter.com/leandro_nunes">Twitter<a>

@@ -31,7 +31,7 @@ export const HomeWrapper = styled.div`
     border-radius: 15px;
   }
 
-  @media (max-width: 415px) {
+  @media (max-width: 450px) {
     .MuiTableCell-root {
       padding: 16px 4px;
     }
