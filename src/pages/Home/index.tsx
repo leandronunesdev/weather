@@ -34,6 +34,7 @@ export type ForecastType = {
 
 const Home = () => {
   const [search, setSearch] = useState<string>('');
+  const [units, setUnits] = useState<string>('metric');
   const [city, setCity] = useState<CityType>();
   const [forecast, setForecast] = useState<ForecastType[]>();
   const [min, setMin] = useState<number>();
@@ -68,6 +69,34 @@ const Home = () => {
     }
   };
 
+  useEffect(() => {
+    type GetWeatherParams = {
+      lat: number;
+      lon: number;
+      units: string;
+    };
+
+    const getWeather = async (params: GetWeatherParams) => {
+      const data = await weatherService.get(params);
+
+      if (data) {
+        setForecast(data.daily.slice(0, 5));
+      }
+
+      return;
+    };
+
+    if (city) {
+      const params = {
+        lat: city.lat,
+        lon: city.lon,
+        units: units,
+      };
+
+      getWeather(params);
+    }
+  }, [city, units]);
+
   function getMode(array: number[]) {
     interface IObjectKeys {
       [key: number]: number;
@@ -96,32 +125,6 @@ const Home = () => {
 
     return highestValueKey;
   }
-
-  useEffect(() => {
-    type GetWeatherParams = {
-      lat: number;
-      lon: number;
-    };
-
-    const getWeather = async (params: GetWeatherParams) => {
-      const data = await weatherService.get(params);
-
-      if (data) {
-        setForecast(data.daily.slice(0, 5));
-      }
-
-      return;
-    };
-
-    if (city) {
-      const params = {
-        lat: city.lat,
-        lon: city.lon,
-      };
-
-      getWeather(params);
-    }
-  }, [city]);
 
   useEffect(() => {
     const getStats = (temperatures: number[]) => {
@@ -160,9 +163,23 @@ const Home = () => {
           value={search}
           onChange={onSearchChanged}
         />
-        <S.StyledButton onClick={handleGetCity}>
-          <SearchRoundedIcon />
-        </S.StyledButton>
+        <S.ButtonsSection>
+          <S.StyledButton onClick={handleGetCity}>
+            <SearchRoundedIcon />
+          </S.StyledButton>
+          <S.UnitsButton
+            onClick={() => setUnits('metric')}
+            isSelected={units === 'metric'}
+          >
+            <p>°C</p>
+          </S.UnitsButton>
+          <S.UnitsButton
+            onClick={() => setUnits('imperial')}
+            isSelected={units === 'imperial'}
+          >
+            <p>°F</p>
+          </S.UnitsButton>
+        </S.ButtonsSection>
       </S.StyledForm>
       {loading ? (
         <Loading />

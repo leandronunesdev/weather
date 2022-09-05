@@ -1,8 +1,13 @@
-import styled, { css } from 'styled-components';
+import styled, { css, DefaultTheme } from 'styled-components';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 import KeyboardArrowUpRoundedIcon from '@mui/icons-material/KeyboardArrowUpRounded';
 import LegendToggleRoundedIcon from '@mui/icons-material/LegendToggleRounded';
 import ScatterPlotRoundedIcon from '@mui/icons-material/ScatterPlotRounded';
+
+type UnitsButtonType = {
+  theme: DefaultTheme;
+  isSelected: boolean;
+};
 
 export const HomeWrapper = styled.div`
   display: flex;
@@ -41,6 +46,20 @@ export const StyledForm = styled.form`
   display: flex;
   width: 100%;
   justify-content: center;
+  margin-bottom: 25px;
+
+  @media (max-width: 415px) {
+    flex-direction: column;
+  }
+`;
+
+export const ButtonsSection = styled.div`
+  display: flex;
+
+  @media (max-width: 415px) {
+    margin-top: 25px;
+    justify-content: center;
+  }
 `;
 
 export const StyledButton = styled.button`
@@ -54,6 +73,36 @@ export const StyledButton = styled.button`
     font-size: 14px;
     border-radius: 50%;
     cursor: pointer;
+
+    &:hover {
+      box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.15);
+    }
+  `}
+`;
+
+export const UnitsButton = styled.div`
+  ${({ isSelected }: UnitsButtonType) => css`
+    border: none;
+    margin-left: 20px;
+    height: 50px;
+    min-width: 50px;
+    width: 50px;
+    background: white;
+    color: black;
+    font-size: 14px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    ${isSelected &&
+    css`
+      background: black;
+      color: white;
+    `}
+
+    p {
+      margin: 12px;
+      font-size: 22px;
+    }
 
     &:hover {
       box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.15);

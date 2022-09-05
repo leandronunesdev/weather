@@ -12,4 +12,8 @@ export const StyledInput = styled.input`
   &:hover {
     box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.15);
   }
+
+  @media (max-width: 415px) {
+    width: 100%;
+  }
 `;
